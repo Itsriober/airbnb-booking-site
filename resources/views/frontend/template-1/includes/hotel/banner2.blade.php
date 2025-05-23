@@ -1,4 +1,4 @@
-<img src="{{ asset('frontend/img/innerpage/support-img.jpg') }}" alt="">
+{{--<img src="{{ asset('frontend/img/innerpage/support-img.jpg') }}" alt="">
 <div class="banner2-content-wrap">
     <div class="banner2-content">
         <div class="hotline-area">
@@ -22,3 +22,4 @@
         </div>
     </div>
 </div>
+--}}
