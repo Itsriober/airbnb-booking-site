@@ -1,0 +1,2 @@
+[10-May-2025 20:01:03 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.32. in /home/wpgxubae/public_html/test.harmostays.com/vendor/composer/platform_check.php on line 42
+[10-May-2025 20:01:04 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.32. in /home/wpgxubae/public_html/test.harmostays.com/vendor/composer/platform_check.php on line 42
