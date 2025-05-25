@@ -1,6 +1,6 @@
 <div class="sidebar-wrapper">
     <div class="sidebar">
-        <div class="sidebar-menu-wrapper pb-110" top-margin="5">
+        <div class="sidebar-menu-wrapper pb-110" style="margin-top=5px;">
             <ul class="side-menu-list gap-3">
                 <li @if (Illuminate\Support\Facades\Route::is('backend.dashboard')) class="active" @endif>
                     <a href="{{ route('backend.dashboard') }}">
