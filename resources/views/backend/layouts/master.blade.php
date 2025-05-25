@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $page_title ?? '' }}</title>
-    <link rel="icon" href="{{ asset('assets/logo/' . get_setting('front_favicon')) }}" type="image/x-icon" sizes="100x100">
+    <link rel="icon" href="{{ asset('assets/logo/' . get_setting('front_favicon')) }}" type="image/x-icon" sizes="200x200">
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/libraries/cutealert/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}">
