@@ -10,7 +10,7 @@
                 <a href="{{ route('backend.dashboard') }}" class="header-logo">
                     @if (get_setting('admin_logo'))
                         <img src="{{ asset('assets/logo/' . get_setting('admin_logo')) }}" alt="admin-logo"
-                            height="30">
+                            height="200">
                     @else
                         <img src="{{ asset('backend/logo.svg') }}" alt="header-logo" height="30">
                     @endif
