@@ -251,7 +251,7 @@
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="7">{{ translate('Data not found') }}</td>
+                                <td colspan="7">{{ translate('Nothings Here Fahm!') }}</td>
                             </tr>
                         @endif
                     </tbody>

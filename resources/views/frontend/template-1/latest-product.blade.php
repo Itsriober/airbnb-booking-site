@@ -200,7 +200,7 @@
                                     @endforeach
                                 @else
                                     <div class="col-lg-12 col-md-12">
-                                        <h2 class="text-center">{{ translate('Data not found') }}</h2>
+                                        <h2 class="text-center">{{ translate('Nothings Here Fahm!') }}</h2>
                                     </div>
                                 @endif
                             </div>
@@ -218,7 +218,7 @@
                                     @endforeach
                                 @else
                                     <div class="col-lg-12 col-md-12">
-                                        <h2 class="text-center">{{ translate('Data not found') }}</h2>
+                                        <h2 class="text-center">{{ translate('Nothings Here Fahm!') }}</h2>
                                     </div>
                                 @endif
                             </div>
@@ -236,7 +236,7 @@
                                     @endforeach
                                 @else
                                     <div class="col-lg-12 col-md-12">
-                                        <h2 class="text-center">{{ translate('Data not found') }}</h2>
+                                        <h2 class="text-center">{{ translate('Nothings Here Fahm!') }}</h2>
                                     </div>
                                 @endif
                             </div>
@@ -254,7 +254,7 @@
                                     @endforeach
                                 @else
                                     <div class="col-lg-12 col-md-12">
-                                        <h2 class="text-center">{{ translate('Data not found') }}</h2>
+                                        <h2 class="text-center">{{ translate('Nothings Here Fahm!') }}</h2>
                                     </div>
                                 @endif
                             </div>
