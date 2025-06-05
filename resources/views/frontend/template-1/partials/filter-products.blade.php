@@ -19,5 +19,5 @@
     </div>
 @else
     <h1 class="text-center">
-        {{ translate('No Data Found') }}</h1>
+        {{ translate('Yoo! Nothings Here Bruhv') }}</h1>
 @endif

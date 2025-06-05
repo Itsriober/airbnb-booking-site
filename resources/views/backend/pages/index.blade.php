@@ -17,7 +17,7 @@
                 <table class="eg-table table category-table">
                     <thead>
                         <tr>
-                            <th>{{ translate('S.N') }}</th>
+                            <th>{{ translate('No.') }}</th>
                             <th>{{ translate('Name') }}</th>
                             <th>{{ translate('Status') }}</th>
                             <th>{{ translate('Published') }}</th>

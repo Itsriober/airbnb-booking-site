@@ -163,7 +163,7 @@
             @endforeach
         @else
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <h1>{{ translate('No Data Found') }}</h1>
+                <h1>{{ translate('Yoo! Nothings Here Bruhv') }}</h1>
             </div>
         @endif
     </div>

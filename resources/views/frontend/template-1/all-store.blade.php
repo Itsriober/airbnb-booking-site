@@ -62,7 +62,7 @@ $merchants = merchants('', $perPage = $limit, $orderBy);
                 {!! $merchants->links('vendor.pagination.custom') !!}
             </div>
         @else
-            <h2 class="text-center">{{ translate('No Data Found') }}</h2>
+            <h2 class="text-center">{{ translate('Yoo! Nothings Here Bruhv') }}</h2>
         @endif
     </div>
 </div>

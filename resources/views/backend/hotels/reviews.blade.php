@@ -19,7 +19,7 @@
                 <table class="eg-table table customer-table">
                     <thead>
                         <tr>
-                            <th>{{ translate('S.N') }}</th>
+                            <th>{{ translate('No.') }}</th>
                             <th>{{ translate('Customer') }}</th>
                             <th>{{ translate('Email / Phone') }}</th>
                             <th>{{ translate('Rate') }}</th>
@@ -151,7 +151,7 @@
                         @else
                             <tr>
                                 <td colspan="10" data-label="Not Found">
-                                    <h4>{{ translate('No Data Found') }}</h4>
+                                    <h4>{{ translate('Yoo! Nothings Here Bruhv') }}</h4>
                                 </td>
                             </tr>
                         @endif

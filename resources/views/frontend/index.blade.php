@@ -48,7 +48,7 @@
         @endforeach
     @else
     <div class="pt-120 mb-120">
-        <h2 class="text-center">{{translate('No Data Found')}}</h2>
+        <h2 class="text-center">{{translate('Yoo! Nothings Here Bruhv')}}</h2>
     </div>
     @endif
 @endsection

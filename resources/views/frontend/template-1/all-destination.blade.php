@@ -20,7 +20,7 @@ $destinations = destinations('', $perPage = $limit, $orderBy);
             </div>
             @endforeach
             @else
-            <div class="col-xl-12 col-lg-12 col-sm-12"><h2 class="text-center">{{translate('No Data Found')}}</h2></div>
+            <div class="col-xl-12 col-lg-12 col-sm-12"><h2 class="text-center">{{translate('Yoo! Nothings Here Bruhv')}}</h2></div>
             @endif
         </div>
         <div class="row">

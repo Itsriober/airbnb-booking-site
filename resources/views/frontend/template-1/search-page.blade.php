@@ -62,7 +62,7 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-sm-12">
                         <h1 class="text-center">
-                            {{ translate('No Data Found') }}</h1>
+                            {{ translate('Yoo! Nothings Here Bruhv') }}</h1>
                     </div>
                 </div>
             @endif

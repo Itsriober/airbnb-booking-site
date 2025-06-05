@@ -11,7 +11,7 @@
                 <table class="eg-table table">
                     <thead>
                         <tr>
-                            <th>{{ translate('S.N') }}</th>
+                            <th>{{ translate('No.') }}</th>
                             <th>{{ translate('Image') }}</th>
                             <th>{{ translate('Method') }}</th>
                             <th>{{ translate('Mode') }}</th>

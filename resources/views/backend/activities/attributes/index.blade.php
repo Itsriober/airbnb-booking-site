@@ -25,7 +25,7 @@
                 <table class="eg-table table category-table">
                     <thead>
                         <tr>
-                            <th>{{ translate('S.N') }}</th>
+                            <th>{{ translate('No.') }}</th>
                             <th>{{ translate('Name') }}</th>
                             <th>{{ translate('Position') }}</th>
                             <th>{{ translate('Terms') }}</th>
@@ -78,7 +78,7 @@
                         @endforeach
                         @else
                         <tr>
-                            <td colspan="6" class="text-center">{{translate('No Data Found')}}</td>
+                            <td colspan="6" class="text-center">{{translate('Yoo! Nothings Here Bruhv')}}</td>
                         </tr>
                         @endif
                     </tbody>

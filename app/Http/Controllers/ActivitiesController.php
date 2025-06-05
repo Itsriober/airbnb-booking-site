@@ -24,7 +24,7 @@ class ActivitiesController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $page_title = translate('Activities List');
+        $page_title = translate('Experiences List');
         if ($user->role == 2) {
             $activities = Activities::where('author_id', $user->id)
                 ->when(request('search'), function ($q) {

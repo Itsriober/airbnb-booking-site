@@ -112,12 +112,12 @@
                 <table class="eg-table table">
                     <thead>
                         <tr>
-                            <th>{{ translate('S.N') }}</th>
+                            <th>{{ translate('No.') }}</th>
                             <th>{{ translate('Title') }}</th>
                             <th>{{ translate('Visa Type') }}</th>
                             <th>{{ translate('Country') }}</th>
                             @admin
-                                <th>{{ translate('Agent') }}</th>
+                                <th>{{ translate('User') }}</th>
                             @endadmin
                             <th>{{ translate('Cost') }}</th>
                             <th>{{ translate('Status') }}</th>
@@ -198,7 +198,7 @@
                         @else
                             <tr>
                                 <td colspan="@if (Auth::user()->role == 2) 8 @else 9 @endif" data-label="Not Found">
-                                    <h5 class="data-not-found">{{ translate('No Data Found') }}</h5>
+                                    <h5 class="data-not-found">{{ translate('Yoo! Nothings Here Bruhv') }}</h5>
                                 </td>
                             </tr>
                         @endif

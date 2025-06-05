@@ -41,7 +41,7 @@
 
                 <div class="eg-card product-card">
                     <div class="eg-card-title-sm">
-                        <h4>{{ translate('Location') }}</h4>
+                        <h4>{{ translate('Destination') }}</h4>
                     </div>
 
                     <div class="row">

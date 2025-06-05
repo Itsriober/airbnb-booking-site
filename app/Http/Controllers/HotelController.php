@@ -24,7 +24,7 @@ class HotelController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $page_title = translate('Hotel List');
+        $page_title = translate('Stay List');
         if ($user->role == 2) {
             $hotels = Hotel::where('author_id', $user->id)
                 ->when(request('search'), function ($q) {

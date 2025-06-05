@@ -11,7 +11,7 @@
                 <table class="eg-table table category-table">
                     <thead>
                         <tr>
-                            <th>{{ translate('S.N') }}</th>
+                            <th>{{ translate('No.') }}</th>
                             <th>{{ translate('Template Name') }}</th>
                             <th>{{ translate('Subject') }}</th>
                             <th>{{ translate('Option') }}</th>
@@ -38,7 +38,7 @@
                         @else
                             <tr>
                                 <td colspan="4" data-label="Not Found">
-                                    <h5 class="data-not-found">{{ translate('No Data Found') }}</h5>
+                                    <h5 class="data-not-found">{{ translate('Yoo! Nothings Here Bruhv') }}</h5>
                                 </td>
                             </tr>
                         @endif

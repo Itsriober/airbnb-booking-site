@@ -372,7 +372,7 @@
                                 @else
                                     <tr>
                                         <td colspan="6" style="text-align: center;">
-                                            <h5 class="data-not-found">{{ translate('No Data Found') }}
+                                            <h5 class="data-not-found">{{ translate('Yoo! Nothings Here Bruhv') }}
                                             </h5>
                                         </td>
                                     </tr>

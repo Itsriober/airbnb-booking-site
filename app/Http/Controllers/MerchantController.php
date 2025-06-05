@@ -32,7 +32,7 @@ class MerchantController extends Controller
      */
     public function index(Request $request)
     {
-        $page_title = translate('Agent List');
+        $page_title = translate('Users List');
         if ($request->search) {
             $merchants = User::where('role', 2)->where(DB::raw("concat(fname, ' ', lname)"), 'LIKE', '%' . $request->search . '%')
                 ->orWhere('email', 'LIKE', '%' . $request->search . '%')
@@ -193,7 +193,7 @@ class MerchantController extends Controller
      */
     public function show($id)
     {
-        $page_title = translate('Agent Profile');
+        $page_title = translate('User Profile');
         $merchantSingle = User::findOrFail($id);
         $merchant_payment = MerchantPaymentInfo::where('user_id', $id)->get();
         $countries = Location::where('country_id', null)->where('state_id', null)->get();
@@ -216,7 +216,7 @@ class MerchantController extends Controller
         if ($user == 3 || $user == 4) {
             $page_title = translate('Edit Agent');
         } elseif ($user == 2 && Auth::user()->id == $id) {
-            $page_title = translate('Agent Profile');
+            $page_title = translate('User Profile');
         } else {
             return redirect()->back()->with('error', translate('Access not found'));
         }

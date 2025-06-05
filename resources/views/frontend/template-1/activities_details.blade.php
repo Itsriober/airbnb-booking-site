@@ -185,7 +185,7 @@
                                 <li><i class="bi bi-check-lg"></i>{{ $include['title'] }}</li>
                                 @endif
                             @empty
-                                <h2 class="text-center">{{ translate('No Data Found') }}</h2>
+                                <h2 class="text-center">{{ translate('Yoo! Nothings Here Bruhv') }}</h2>
                             @endforelse
                         </ul>
                         <ul class="exclud">
@@ -195,7 +195,7 @@
                                 <li><i class="bi bi-x-lg"></i>{{ $exclude['title'] }}</li>
                                 @endif
                             @empty
-                                <h2 class="text-center">{{ translate('No Data Found') }}</h2>
+                                <h2 class="text-center">{{ translate('Yoo! Nothings Here Bruhv') }}</h2>
                             @endforelse
                         </ul>
                     </div>
@@ -267,7 +267,7 @@
                                 </div>
                                 @endif
                             @empty
-                                <h2 class="text-center">{{ translate('No Data Found') }}</h2>
+                                <h2 class="text-center">{{ translate('Yoo! Nothings Here Bruhv') }}</h2>
                             @endforelse
                         </div>
                     @endif
@@ -311,7 +311,7 @@
                                         </div>
                                         @endif
                                     @empty
-                                        <h2 class="text-center">{{ translate('No Data Found') }}</h2>
+                                        <h2 class="text-center">{{ translate('Yoo! Nothings Here Bruhv') }}</h2>
                                     @endforelse
                                 </div>
                             </div>

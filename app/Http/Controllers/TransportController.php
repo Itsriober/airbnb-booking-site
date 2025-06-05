@@ -24,7 +24,7 @@ class TransportController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $page_title = translate('Transport List');
+        $page_title = translate('Rentals List');
         if ($user->role == 2) {
             $transports = Transport::where('author_id', $user->id)
                 ->when(request('search'), function ($q) {

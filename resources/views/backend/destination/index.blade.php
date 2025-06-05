@@ -3,7 +3,7 @@
     <div class="row d-flex jusify-content-center g-4 pb-3">
         <div class="col-lg-3 col-sm-3">
             <div class="eg-card-two orange">
-                <h5 class="title">{{ translate('Total Destination') }}</h5>
+                <h5 class="title">{{ translate('Total Destinations') }}</h5>
                 <h2 class="number">{{ $data['total_destination'] ?? 00 }}</h2>
                 <svg width="74" height="78" viewBox="0 0 74 78" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g opacity="0.3">
@@ -109,11 +109,11 @@
                 <table class="eg-table table">
                     <thead>
                         <tr>
-                            <th>{{ translate('S.N') }}</th>
+                            <th>{{ translate('No.') }}</th>
                             <th>{{ translate('Title') }}</th>
-                            <th>{{ translate('Destination') }}</th>
+                            <th>{{ translate('Destinations') }}</th>
                             @admin
-                                <th>{{ translate('Agent') }}</th>
+                                <th>{{ translate('User') }}</th>
                             @endadmin
                             <th>{{ translate('Status') }}</th>
                             <th>
@@ -192,7 +192,7 @@
                         @else
                         <tr>
                             <td colspan="@if(Auth::user()->role == 2) 6 @else 7 @endif" data-label="Not Found">
-                                <h5 class="data-not-found">{{ translate('No Data Found') }}</h5>
+                                <h5 class="data-not-found">{{ translate('Yoo! Nothings Here Bruhv') }}</h5>
                             </td>
                         </tr>
                         @endif

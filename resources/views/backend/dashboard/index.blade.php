@@ -163,7 +163,7 @@
          <div class="row">
              <div class="col-sm-6">
                  <div class="page-title text-md-start text-center">
-                     <h5>{{ translate('Booking Summery of daily') }}</h5>
+                     <h5>{{ translate('Daily Booking Summary') }}</h5>
                  </div>
                  <div class="eg-card product-card">
                      <canvas id="booking_summery"></canvas>
@@ -172,7 +172,7 @@
 
              <div class="col-sm-6">
                  <div class="page-title text-md-start text-center">
-                     <h5>{{ translate('Booking Summery of All Product') }}</h5>
+                     <h5>{{ translate('Booking Summary For All Producst') }}</h5>
                  </div>
                  <div class="eg-card product-card">
                      <canvas id="booking_all_product"></canvas>
@@ -181,7 +181,7 @@
              @admin
              <div class="col-sm-6">
                  <div class="page-title text-md-start text-center">
-                     <h5>{{ translate('Daily Deposit and Withdraw Summery') }}</h5>
+                     <h5>{{ translate('Daily Deposit and Withdraw Summary') }}</h5>
                  </div>
                  <div class="eg-card product-card">
                      <canvas id="disposit_widthdraw"></canvas>
@@ -189,7 +189,7 @@
              </div>
              <div class="col-sm-6">
                 <div class="page-title text-md-start text-center">
-                    <h5>{{ translate('Daily Register Customer and Marchant Report') }}</h5>
+                    <h5>{{ translate('Customer & Merchant Analysis Report') }}</h5>
                 </div>
                 <div class="eg-card product-card">
                     <canvas id="customer_merchant"></canvas>
@@ -202,7 +202,7 @@
           <div class="row mt-3">
             <div class="col-12 mt-3">
                 <div class="table-wrapper">
-                    <h5>{{ translate('Latest Booking') }}</h5>
+                    <h5>{{ translate('Latest Bookings') }}</h5>
                     <table class="eg-table table">
                         <thead>
                             <tr>
@@ -255,7 +255,7 @@
                             @else
                                 <tr>
                                     <td colspan="8" data-label="Not Found">
-                                        <h5 class="data-not-found">{{ translate('No Data Found') }}</h5>
+                                        <h5 class="data-not-found">{{ translate('Yoo! Nothings Here Bruhv') }}</h5>
                                     </td>
                                 </tr>
                             @endif

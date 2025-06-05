@@ -3,7 +3,7 @@
     <div class="row d-flex jusify-content-center g-4 pb-3">
         <div class="col-lg-3 col-sm-3">
             <div class="eg-card-two orange">
-                <h5 class="title">{{ translate('Total Transports') }}</h5>
+                <h5 class="title">{{ translate('Total Rentals') }}</h5>
                 <h2 class="number">{{ $data['total_transports'] ?? 00 }}</h2>
                 <svg width="74" height="78" viewBox="0 0 74 78" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g opacity="0.3">
@@ -23,7 +23,7 @@
 
         <div class="col-lg-3 col-sm-3">
             <div class="eg-card-two primary">
-                <h5 class="title">{{ translate('Total Active Transports') }}</h5>
+                <h5 class="title">{{ translate('Total Active Rentals') }}</h5>
                 <h2 class="number">{{ $data['total_active'] ?? 00 }}</h2>
                 <svg width="74" height="78" viewBox="0 0 74 78" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g opacity="0.3">
@@ -43,7 +43,7 @@
 
         <div class="col-lg-3 col-sm-3">
             <div class="eg-card-two success">
-                <h5 class="title">{{ translate('Total Booking') }}</h5>
+                <h5 class="title">{{ translate('Total Bookings') }}</h5>
                 <h2 class="number">{{ $data['total_booking'] ?? 00 }}</h2>
                 <svg width="74" height="78" viewBox="0 0 74 78" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g opacity="0.3">
@@ -114,11 +114,11 @@
                 <table class="eg-table table">
                     <thead>
                         <tr>
-                            <th>{{ translate('S.N') }}</th>
+                            <th>{{ translate('No.') }}</th>
                             <th>{{ translate('Name') }}</th>
                             <th>{{ translate('Location') }}</th>
                             @admin
-                                <th>{{ translate('Agent') }}</th>
+                                <th>{{ translate('User') }}</th>
                             @endadmin
                             <th>{{ translate('Price') }}</th>
                             @admin
@@ -210,7 +210,7 @@
                         @else
                             <tr>
                                 <td colspan="@if(Auth::user()->role == 2) 7 @else 9 @endif" data-label="Not Found">
-                                    <h5 class="data-not-found">{{ translate('No Data Found') }}</h5>
+                                    <h5 class="data-not-found">{{ translate('Yoo! Nothings Here Bruhv') }}</h5>
                                 </td>
                             </tr>
                         @endif

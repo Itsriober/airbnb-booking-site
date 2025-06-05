@@ -63,7 +63,7 @@
                                     </li>
                                     @endif
                                 @empty
-                                    <h2 class="text-center">{{ translate('No Data Found') }}</h2>
+                                    <h2 class="text-center">{{ translate('Yoo! Nothings Here Bruhv') }}</h2>
                                 @endforelse
                             </ul>
                         </div>
@@ -95,7 +95,7 @@
                                 </div>
                                 @endif
                             @empty
-                                <h2 class="text-center">{{ translate('No Data Found') }}</h2>
+                                <h2 class="text-center">{{ translate('Yoo! Nothings Here Bruhv') }}</h2>
                             @endforelse
                         </div>
                     </div>

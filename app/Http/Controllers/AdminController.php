@@ -89,7 +89,7 @@ class AdminController extends Controller
     {
         $userSingle = Auth::user();
         if ($userSingle->role == 2) {
-            $page_title = translate('Agent Profile');
+            $page_title = translate('User Profile');
         } else {
             $page_title = translate('Admin Profile');
         }

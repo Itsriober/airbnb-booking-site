@@ -67,7 +67,7 @@
 
                    <div class="col-md-3 col-sm-3">
                        <div class="eg-card-two skyblue">
-                           <h5 class="title">{{ translate('Total Customer') }}</h5>
+                           <h5 class="title">{{ translate('Total Customers') }}</h5>
                            <h2 class="number"> {{$data['total_customers']}}</h2>
                            <svg width="74" height="78" viewBox="0 0 74 78" fill="none"
                                xmlns="http://www.w3.org/2000/svg">

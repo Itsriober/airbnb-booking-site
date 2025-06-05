@@ -71,7 +71,7 @@
                 <table class="eg-table table">
                     <thead>
                         <tr>
-                            <th>{{ translate('S.N') }}</th>
+                            <th>{{ translate('No.') }}</th>
                             <th>{{ translate('Name') }}</th>
                             <th>{{ translate('Flag') }}</th>
                             <th>{{ translate('Code') }}</th>

@@ -123,7 +123,7 @@ col-lg-12 @endif">
                                     </ul>
                                 @else
                                     <div class="col-lg-12 col-md-12">
-                                        <h2 class="text-center">{{ translate('No Data Found') }}</h2>
+                                        <h2 class="text-center">{{ translate('Yoo! Nothings Here Bruhv') }}</h2>
                                     </div>
                                 @endif
                             </div>

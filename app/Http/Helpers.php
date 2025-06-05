@@ -403,7 +403,7 @@ if (!function_exists('destinations')) {
     function destinations($limit = null, $perPage = null, $sortedBy = 'DESC')
     {
         $destination = Destination::withCount('tours')->where('status', 1)
-            ->having('tours_count', '>', 0)
+            //->having('tours_count', '>', 0)
             ->orderBy('id', $sortedBy);
         if (isset($limit) || isset($perPage)) {
             return $limit ? $destination->limit($limit)->get() : $destination->paginate($perPage);

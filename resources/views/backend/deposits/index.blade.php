@@ -22,7 +22,7 @@
                 <table class="eg-table table customer-table">
                     <thead>
                         <tr>
-                            <th>{{ translate('S.N') }}</th>
+                            <th>{{ translate('No.') }}</th>
                             <th>{{ translate('Customer') }}</th>
                             <th>{{ translate('Method') }}</th>
                             <th>{{ translate('Amount') }}</th>
@@ -60,7 +60,7 @@
                         @else
                             <tr>
                                 <td colspan="8" data-label="Not Found">
-                                    <h5 class="data-not-found">{{ translate('No Data Found') }}</h5>
+                                    <h5 class="data-not-found">{{ translate('Yoo! Nothings Here Bruhv') }}</h5>
                                 </td>
                             </tr>
                         @endif

@@ -25,7 +25,7 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
-        $page_title = translate('Customer List');
+        $page_title = translate('Customers List');
         if ($request->search) {
             $customers = User::where('role', 1)->where(DB::raw("concat(fname, ' ', lname)"), 'LIKE', '%' . $request->search . '%')
                 ->orWhere('email', 'LIKE', '%' . $request->search . '%')
