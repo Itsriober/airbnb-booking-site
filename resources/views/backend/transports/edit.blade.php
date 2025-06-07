@@ -707,7 +707,7 @@
                 @admin
                     <div class="eg-card product-card">
                         <div class="eg-card-title-sm">
-                            <h4>{{ translate('Agent Setting') }}</h4>
+                            <h4>{{ translate('User Setting') }}</h4>
                         </div>
 
                         <div class="form-inner">

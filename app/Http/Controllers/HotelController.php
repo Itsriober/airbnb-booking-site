@@ -69,7 +69,7 @@ class HotelController extends Controller
      */
     public function create()
     {
-        $page_title = translate('Add Hotel');
+        $page_title = translate('Add Stay');
         $attributes = HotelAttribute::orderBy('name', 'asc')->get();
         $authors = User::where('role', 2)->orderBy('username', 'asc')->get();
         $countries = Location::where('country_id', null)->where('state_id', null)->get();
@@ -101,7 +101,7 @@ class HotelController extends Controller
             'country_id' => 'nullable|max:255',
             'state_id' => 'nullable|max:255',
             'city_id' => 'nullable|max:255',
-            'zip_code' => 'nullable|max:255',
+           // 'zip_code' => 'nullable|max:255',
             'meta_title' => 'nullable|max:255',
             'meta_description' => 'nullable',
             'meta_keyward' => 'nullable',
@@ -169,9 +169,9 @@ class HotelController extends Controller
         $hotels->country_id = $request->country_id;
         $hotels->state_id = $request->state_id;
         $hotels->city_id = $request->city_id;
-        $hotels->zip_code = $request->zip_code;
-        $hotels->map_lat = $request->map_lat;
-        $hotels->map_lng = $request->map_lng;
+       // $hotels->zip_code = $request->zip_code;
+        //$hotels->map_lat = $request->map_lat;
+       // $hotels->map_lng = $request->map_lng;
         $hotels->meta_title = $request->meta_title;
         $hotels->meta_desc =  Purifier::clean($request->meta_description);
         $hotels->meta_keyward = $request->meta_keyward;
@@ -240,7 +240,7 @@ class HotelController extends Controller
             'country_id' => 'nullable|max:255',
             'state_id' => 'nullable|max:255',
             'city_id' => 'nullable|max:255',
-            'zip_code' => 'nullable|max:255',
+            //'zip_code' => 'nullable|max:255',
             'meta_title' => 'nullable|max:255',
             'meta_description' => 'nullable',
             'meta_keyward' => 'nullable',
@@ -317,9 +317,9 @@ class HotelController extends Controller
         $hotels->country_id = $request->country_id;
         $hotels->state_id = $request->state_id;
         $hotels->city_id = $request->city_id;
-        $hotels->zip_code = $request->zip_code;
-        $hotels->map_lat = $request->map_lat;
-        $hotels->map_lng = $request->map_lng;
+        //$hotels->zip_code = $request->zip_code;
+        //$hotels->map_lat = $request->map_lat;
+        //$hotels->map_lng = $request->map_lng;
         $hotels->meta_title = $request->meta_title;
         $hotels->meta_desc =  Purifier::clean($request->meta_description);
         $hotels->meta_keyward = $request->meta_keyward;

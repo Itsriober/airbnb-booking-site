@@ -40,9 +40,9 @@ return new class extends Migration
             $table->unsignedBigInteger('country_id')->nullable();
             $table->unsignedBigInteger('state_id')->nullable();
             $table->unsignedBigInteger('city_id')->nullable();
-            $table->string('zip_code')->nullable();
-            $table->string('map_lat')->nullable();
-            $table->string('map_lng')->nullable();
+            //$table->string('zip_code')->nullable();
+            //$table->string('map_lat')->nullable();
+            //$table->string('map_lng')->nullable();
             $table->integer('breakfast')->default(2)->comment('Yes=1, No=2');
             $table->longText('attribute_terms')->nullable();
             $table->text('feature_img')->nullable();

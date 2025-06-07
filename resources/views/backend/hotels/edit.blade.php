@@ -31,13 +31,13 @@
             <div class="col-lg-8">
                 <div class="eg-card product-card">
                     <div class="eg-card-title-sm">
-                        <h4>{{ translate('Hotel Content') }}</h4>
+                        <h4>{{ translate('Stay Content') }}</h4>
                     </div>
                     <div class="form-inner mb-35">
                         <label>{{ translate('Title') }} <span class="text-danger">*</span></label>
                         <input type="text" class="username-input"
                             value="{{ old('title', $hotelSingle->getTranslation('title', $lang)) }}" name="title"
-                            placeholder="{{ translate('Name of the hotel') }}">
+                            placeholder="{{ translate('Name of the stay') }}">
                         @error('title')
                             <div class="error text-danger">{{ $message }}</div>
                         @enderror
@@ -77,7 +77,7 @@
                 </div>
                 <div class="eg-card product-card">
                     <div class="eg-card-title-sm">
-                        <h4>{{ translate('Hotel Policy') }}</h4>
+                        <h4>{{ translate('Stay Policy') }}</h4>
                     </div>
                     <div class="form-inner mb-35">
                         <label>{{ translate('Policy Title') }}</label>
@@ -174,9 +174,9 @@
                                 @enderror
                             </div>
                             <div class="form-inner mb-35">
-                                <label>{{ translate('Guest Capability') }}</label>
+                                <label>{{ translate('Maximum Guests') }}</label>
                                 <input type="number" class="username-input" value="{{ $hotelSingle->guest_capability }}"
-                                    name="guest_capability" placeholder="{{ translate('Guest Capability') }}">
+                                    name="guest_capability" placeholder="{{ translate('Maximum Guests') }}">
                                 @error('guest_capability')
                                     <div class="error text-danger">{{ $message }}</div>
                                 @enderror
@@ -209,10 +209,10 @@
                     </div>
 
                     <div class="form-inner mb-35">
-                        <label>{{ translate('Hotel Price') }}</label>
+                        <label>{{ translate('Stay Price *') }}</label>
                         <input type="number" class="username-input"
                             value="{{ old('price', $hotelSingle->price) }}" name="price"
-                            placeholder="{{ translate('Hotel Price') }}">
+                            placeholder="{{ translate('Stay Price *') }}">
                         @error('price')
                             <div class="error text-danger">{{ $message }}</div>
                         @enderror
@@ -367,6 +367,7 @@
                                 @enderror
                             </div>
                         </div>
+                        {{--
                         <div class="col-xl-6 col-lg-6">
                             <div class="form-inner mb-35">
                                 <label>{{ translate('Zip/Postal') }} <span class="text-danger">*</span></label>
@@ -378,6 +379,8 @@
                                 @enderror
                             </div>
                         </div>
+                        --}}
+                        {{--
                         <div class="col-xl-6 col-lg-6">
                             <div class="form-inner mb-35">
                                 <label>{{ translate('Latitude') }} <span class="text-danger">*</span></label>
@@ -390,6 +393,8 @@
                                 @enderror
                             </div>
                         </div>
+                        --}}
+                        {{--
                         <div class="col-xl-6 col-lg-6">
                             <div class="form-inner mb-35">
                                 <label>{{ translate('Longitude') }} <span class="text-danger">*</span></label>
@@ -402,6 +407,7 @@
                                 @enderror
                             </div>
                         </div>
+                        --}}
                     </div>
                 </div>
                 <div class="eg-card product-card">

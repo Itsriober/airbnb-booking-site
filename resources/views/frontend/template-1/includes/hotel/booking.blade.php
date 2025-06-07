@@ -70,7 +70,7 @@
                 </div>
                 <!-- Children Section -->
                 <div class="number-input-item children">
-                    <label class="number-input-lable">{{ translate('Guest Capability') }}:</label>
+                    <label class="number-input-lable">{{ translate('Maximum Guests') }}:</label>
                     <div class="quantity-counter">
                         <a href="#" class="quantity__minus_hotel guest-quantity__minus" data-type="guest"><i
                                 class="bi bi-dash"></i></a>

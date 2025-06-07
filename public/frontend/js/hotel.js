@@ -37,7 +37,7 @@ $(".quantity__plus_hotel").on("click", function (e) {
         
             guest_capability.val(value.toString().padStart(2, "0"));
         }else{
-            alert('Maximum Guest Capability is ' + guest_qty);
+            alert('Maximum Guests  is ' + guest_qty);
         }
     }
     total_amount();

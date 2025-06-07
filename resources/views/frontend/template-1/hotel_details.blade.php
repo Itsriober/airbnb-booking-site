@@ -178,6 +178,7 @@
                     {{-- Policies --}}
                     @include('frontend.template-1.partials.policies')
                     {{-- End Policies --}}
+                    {{--
                     @if ($hotels->map_lng && $hotels->map_lat)
                         <div id="location-map" class="tour-location">
                             <h4>{{ translate('Location Map') }}</h4>
@@ -189,7 +190,7 @@
                             </div>
                         </div>
                     @endif
-
+                    --}}
                     @if (Auth::check() && Auth::user()->role == 1)
                         @include('frontend.template-' . $templateId . '.includes.review_area')
                     @endif
