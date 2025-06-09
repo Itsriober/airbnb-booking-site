@@ -22,3 +22,5 @@ yarn-error.log
 .env
 *.sql
 public/uploads/
+rr
+.rr.yaml
