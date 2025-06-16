@@ -1,0 +1,1 @@
+<?php /**PATH /home/wpgxubae/public_html/test.harmostays.com/resources/views/frontend/template-1/includes/hotel/banner2.blade.php ENDPATH**/ ?>

@@ -71,8 +71,8 @@ return [
         ],
 
         RequestReceived::class => [
-            ...Octane::prepareApplicationForNextOperation(),
-            ...Octane::prepareApplicationForNextRequest(),
+           // ...Octane::prepareApplicationForNextOperation(),
+           // ...Octane::prepareApplicationForNextRequest(),
             //
         ],
 
@@ -85,7 +85,7 @@ return [
         ],
 
         TaskReceived::class => [
-            ...Octane::prepareApplicationForNextOperation(),
+          //  ...Octane::prepareApplicationForNextOperation(),
             //
         ],
 
@@ -94,7 +94,7 @@ return [
         ],
 
         TickReceived::class => [
-            ...Octane::prepareApplicationForNextOperation(),
+            //...Octane::prepareApplicationForNextOperation(),
             //
         ],
 
@@ -131,7 +131,7 @@ return [
     */
 
     'warm' => [
-        ...Octane::defaultServicesToWarm(),
+        //...Octane::defaultServicesToWarm(),
     ],
 
     'flush' => [
