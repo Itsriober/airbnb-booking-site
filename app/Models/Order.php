@@ -35,9 +35,4 @@ class Order extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-    public function wallets()
-    {
-        return $this->hasOne(Wallet::class, 'order_id', 'id');
-    }
 }

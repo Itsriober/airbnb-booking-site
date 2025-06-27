@@ -26,6 +26,10 @@ use Illuminate\Support\Facades\Session;
 use App\Models\MenuItem;
 use App\Models\Location;
 use App\Models\VisaCategory;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\App;
+use App\Models\Product;
+use App\Models\Order;
 
 //highlights the selected navigation on frontend
 if (!function_exists('default_language')) {
@@ -218,18 +222,6 @@ if (!function_exists('currency_code')) {
         return false;
     }
 }
-/**
- * Generate a setting path for the application.
- */
-if (!function_exists('wallet_balance')) {
-    function wallet_balance($user_id)
-    {
-        $wallet_balance = User::where('id', $user_id)->pluck('wallet_balance')->first();
-
-        return $wallet_balance ?? 0;
-    }
-}
-
 
 /**
  * get shop for the application.

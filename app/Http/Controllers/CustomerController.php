@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Order;
-use App\Models\Wallet;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,9 +34,6 @@ class CustomerController extends Controller
             $customers = User::where('role', 1)->latest()->paginate(12);
         }
         $data['total_customers'] = $this->getUserByRole(1)->count();
-        $data['total_deposit'] =  $this->walletSubByStatus($type = 1, $status = 2, $userType = null);
-        $data['total_pay'] =  $this->walletMultiTypeByStatus($type = [2, 3, 7], $status = 2, $userType = null);
-        $data['total_pending'] =  $this->walletSubByStatus($type = 2, $status = 1, $userType = null);
         return view('backend.customer.index', compact('page_title', 'customers', 'data'));
     }
 
@@ -126,9 +122,8 @@ class CustomerController extends Controller
         $page_title = translate('Customer Profile');
         $customerSingle = User::findOrFail($id);
         $countries = Location::where('country_id', null)->where('state_id', null)->get();
-        $deposits = Wallet::where('user_id', $id)->where('type', 1)->latest()->limit(15)->get();
         $orders = Order::where('user_id', $id)->latest()->limit(15)->get();
-        return view('backend.customer.profile', compact('page_title', 'customerSingle', 'countries', 'deposits', 'orders'));
+        return view('backend.customer.profile', compact('page_title', 'customerSingle', 'countries', 'orders'));
     }
 
 
@@ -269,39 +264,5 @@ class CustomerController extends Controller
     public function getUserByRole($role)
     {
         return User::where('role', $role)->get();
-    }
-
-    /**
-     * walletSubByStatus
-     *
-     * @param  String $type
-     * @param  Int $status
-     * @param  Int $userType
-     * @return Response
-     */
-    public function walletSubByStatus($type = null, $status = null, $userType = null)
-    {
-        $wallet =  Wallet::where('type', $type)->where('status', $status);
-        if (!empty($userType)) {
-            return $wallet->where('user_id', $userType)->sum('amount');
-        }
-        return $wallet->sum('amount');
-    }
-
-    /**
-     * walletMultiTypeByStatus
-     *
-     * @param String $type
-     * @param Int $status
-     * @param Int $userType
-     * @return void
-     */
-    public function walletMultiTypeByStatus($type = null, $status = null, $userType = null)
-    {
-        $wallet =  Wallet::where('status', $status)->whereIn('type', $type);
-        if (!empty($userType)) {
-            return $wallet->where('user_id', $userType)->sum('amount');
-        }
-        return $wallet->sum('amount');
     }
 }

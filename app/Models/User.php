@@ -86,11 +86,6 @@ class User extends Authenticatable
         return $this->hasMany(Transport::class, 'author_id');
     }
 
-    public function transactions()
-    {
-        return $this->hasMany(Wallet::class, 'user_id');
-    }
-
     public function user(){
         return $this->belongsTo(User::class);
     }

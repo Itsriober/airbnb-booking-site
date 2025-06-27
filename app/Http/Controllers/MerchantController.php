@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Store;
-use App\Models\Wallet;
 use App\Models\Tour;
 use App\Models\Hotel;
 use App\Models\Activities;
@@ -42,9 +41,6 @@ class MerchantController extends Controller
             $merchants = User::where('role', 2)->latest()->paginate(12);
         }
         $data['total_merchants'] = $this->getUserByRole(2)->count();
-        $data['total_withdraw'] =  $this->walletSubByStatus($type = 4, $status = 2, $userType = null);
-        $data['total_received'] =  $this->walletReceivedByStatus($type = [2, 3, 7], $status = 2, $userType = null);
-        $data['total_pending'] =  $this->walletReceivedByStatus($type = 2, $status = 1, $userType = null);
 
         return view('backend.merchant.index', compact('page_title', 'merchants', 'data'));
     }
@@ -440,39 +436,5 @@ class MerchantController extends Controller
     public function getUserByRole($role)
     {
         return User::where('role', $role)->get();
-    }
-
-    /**
-     * walletSubByStatus
-     *
-     * @param  int $type
-     * @param  int $status
-     * @param  int $userType
-     * @return Response
-     */
-    public function walletSubByStatus($type = null, $status = null, $userType = null)
-    {
-        $wallet =  Wallet::where('type', $type)->where('status', $status);
-        if (!empty($userType)) {
-            return $wallet->where('user_id', $userType)->sum('amount');
-        }
-        return $wallet->sum('amount');
-    }
-
-    /**
-     * walletReceivedByStatus
-     *
-     * @param  int $type
-     * @param  int $status
-     * @param  int $userType
-     * @return Response
-     */
-    public function walletReceivedByStatus($type = null, $status = null, $userType = null)
-    {
-        $wallet =  Wallet::where('type', $type)->where('status', $status);
-        if (!empty($userType)) {
-            return $wallet->where('user_id', $userType)->sum('merchant_amount');
-        }
-        return $wallet->sum('merchant_amount');
     }
 }

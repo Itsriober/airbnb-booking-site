@@ -31,6 +31,12 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'paygate' => [
+        'secret' => env('PAYGATE_SECRET', 'harmostays_secret_key'),
+        'checkout_url' => env('PAYGATE_CHECKOUT_URL', 'https://checkout.harmostays.com/checkout'),
+        'wallet_address' => env('PAYGATE_WALLET_ADDRESS', '0x6734be2F7C16de208483453DC64588C3c856ee0D'),
+    ],
+
     'recaptcha' => [
         'key'     => '6LeUfggpAAAAABeD89fsp5C7b9SQe6aPo6Zx86FS',
         'secret' => '6LeUfggpAAAAAON5CvtdIt8wEzqLd_UOsa8hnE5o',

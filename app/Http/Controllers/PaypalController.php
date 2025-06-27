@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Omnipay\Omnipay;
 use App\Models\Order;
-use App\Models\Wallet;
 use App\Models\Tour;
 use App\Models\Hotel;
 use App\Models\Activities;
@@ -150,51 +149,7 @@ class PaypalController extends Controller
                     $orders->services = $customer_info['services'] ? json_encode($customer_info['services']) : NULL;
                     $orders->save();
                 }
-                $payment = new Wallet;
-                $payment->transaction_id = $arr['id'];
-                $payment->user_id = Auth::user()->id;
-                if ($request->type == 2) {
-                    $payment->order_id = $orders->id ?? null;
-                }
-                $payment->payer_id = $arr['payer']['payer_info']['payer_id'];
-                $payment->payer_email = $arr['payer']['payer_info']['email'];
-                $payment->gateway_amount = $arr['transactions'][0]['amount']['total'];
-                $payment->type = $type;
-                if ($type == 2) {
-                    $admin_commission_rate = $product->users?->admin_commission ?? get_setting('merchant_commission');
-                    $payment_rate = 100 - ($admin_commission_rate ?? 0);
-                    $merchant_amount = $total_amount / 100 * $payment_rate;
-                    $payment->merchant_amount = $merchant_amount;
-                    $payment->admin_commission_rate = ($admin_commission_rate ?? 0);
-                    $admin_commission = $total_amount - $merchant_amount;
-                    $payment->admin_commission = $admin_commission;
-
-
-                    if ($type == 2) {
-                        if ($product->users?->role == 2) {
-                            User::findOrFail($product->author_id)->increment('wallet_balance', (int)$merchant_amount);
-                        }
-                        $admin = User::where('role', 4)->orderBy('id', 'asc')->first();
-                        $admin->increment('wallet_balance', (int)$admin_commission);
-                    }
-                }
                 if ($type == 1) {
-                    $payment->payment_details = 'Deposit to Wallet';
-                } elseif ($type == 2) {
-                    $payment->payment_details = $customer_cart['product_type'] . ' Booking Payment';
-                } elseif ($type == 4) {
-                    $payment->payment_details = 'Withdraw from Wallet';
-                }
-                $payment->amount = $customer_cart['total_amount'] ?? $customer_info['total_with_tax'];
-                $payment->tax_amount = $customer_info['tax_amount'] ?? 0;
-                $payment->total_amount = $customer_info['total_with_tax'];
-                $payment->payment_method = 'paypal';
-                $payment->currency = $arr['transactions'][0]['amount']['currency'];
-                $payment->status = 2;
-                $payment->save();
-                if ($type == 1) {
-                    Auth::user()->increment('wallet_balance', $arr['transactions'][0]['amount']['total']);
-                    email_send('deposit', Auth::user()->email);
                     Session::forget($customer_info);
                     return redirect()->route('customer.deposit')->with('success', translate('Deposit successfully! Your Transaction ID is:') . $arr['id']);
                 } elseif ($type == 2) {

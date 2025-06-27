@@ -1535,11 +1535,6 @@
 				$('.payment_method').val('razorpay');
 				$(this).addClass('active'); // Add active class to the clicked list item
 			}
-			else if ($(this).hasClass('wallet')) {
-				$('#StripePayment').hide();
-				$('.payment_method').val('wallet');
-				$(this).addClass('active'); // Add active class to the clicked list item
-			}
 			else {
 				$('#StripePayment').hide();
 			}

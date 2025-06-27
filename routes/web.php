@@ -125,8 +125,6 @@ Route::group(
                 Route::get('/booking', 'customer_booking')->name('customer.booking');
                 Route::get('/booking/{order_number}/details', 'booking_details')->name('customer.booking.details');
 
-                Route::get('/deposit', 'customer_deposit')->name('customer.deposit');
-              
                 Route::get('/transaction', 'customer_transaction')->name('customer.transaction');
             }
         );
@@ -137,6 +135,12 @@ Route::group(
         Route::get('/paypal/{type}/success', [App\Http\Controllers\PaypalController::class, 'success'])->name('paypal.success');
         Route::get('/paypal/cancel', [App\Http\Controllers\PaypalController::class, 'error'])->name('paypal.error');
         Route::get('/stripe/confirm', [App\Http\Controllers\StripeController::class, 'confirm'])->name('stripe.confirm');
+        
+        // PayGate Routes
+        Route::controller(App\Http\Controllers\PayGateCallbackController::class)->group(function () {
+            Route::get('/paygate/success', 'success')->name('paygate.success');
+            Route::get('/paygate/failed', 'failed')->name('paygate.failed');
+        });
     }
 );
 
@@ -646,35 +650,29 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'backend', 'pver
         );
     });
 
-    // Inquiry
-    Route::group(['prefix' => 'inquiry'], function () {
-        Route::controller(App\Http\Controllers\InquiryController::class)->group(
-            function () {
-                Route::get('/', 'index')->name('inquiry.list');
-                Route::post('/change/status', 'changeStatus')->name('inquiry.change.status');
-                Route::delete('/{id}/destroy', 'destroy')->name('inquiry.delete');
-            }
-        );
-    });
+            // Inquiry
+            Route::group(['prefix' => 'inquiry'], function () {
+                Route::controller(App\Http\Controllers\InquiryController::class)->group(
+                    function () {
+                        Route::get('/', 'index')->name('inquiry.list');
+                        Route::post('/change/status', 'changeStatus')->name('inquiry.change.status');
+                        Route::delete('/{id}/destroy', 'destroy')->name('inquiry.delete');
+                    }
+                );
+            });
+
+            // Secure Payment Transactions
+            Route::group(['prefix' => 'secure-payments'], function () {
+                Route::controller(App\Http\Controllers\SecurePaymentController::class)->group(
+                    function () {
+                        Route::get('/', 'index')->name('secure.payments.list');
+                        Route::get('/{id}/details', 'show')->name('secure.payments.details');
+                        Route::get('/export', 'export')->name('secure.payments.export');
+                    }
+                );
+            });
 
 
-
-    // ============ withdraws
-
-    Route::group(
-        ['prefix' => 'withdraw'],
-        function () {
-            Route::controller(App\Http\Controllers\WithdrawController::class)->group(
-                function () {
-                    Route::get('/', 'index')->name('withdraw.list');
-                    Route::get('/request', 'withdraw_new')->name('withdraw.new');
-                    Route::post('/request', 'withdraw_request')->name('withdraw.request');
-                    Route::get('/details/{id}', 'details')->name('withdraw.details');
-                    Route::patch('/status/{id}', 'status')->name('withdraw.status.change');
-                }
-            );
-        }
-    );
 
     // Support Ticket
     Route::group(
@@ -708,6 +706,16 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'backend']],  fu
 });
 
 
+
+// Users Management
+Route::group(['prefix' => 'users'], function () {
+    Route::controller(App\Http\Controllers\UserController::class)->group(function () {
+        Route::get('/', 'index')->name('users.list');
+    });
+});
+
+// PayGate Callback Route (outside auth middleware for external access)
+Route::get('/checkout-callback', [App\Http\Controllers\PayGateCallbackController::class, 'handleCallback'])->name('paygate.callback');
 
 Route::group(['middleware' => ['XssSanitization', 'pverify']], function () {
     Route::get('/{slug}', [App\Http\Controllers\HomeController::class, 'loadPagesContent'])->name('all_pages');

@@ -178,39 +178,6 @@
         <div class="nav-right d-flex justify-content-end align-items-center">
             @if (Auth::check())
                 @if (Auth::user()->role == 1)
-                <div class="balance-area d-lg-flex d-none">
-                    <div class="icon">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g>
-                                <path
-                                    d="M0.585938 5.85942V17.0313C0.585938 18.3257 1.63527 19.4141 2.92968 19.4141H17.0703C17.7174 19.4141 18.2421 18.8894 18.2421 18.2422V15.8594" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path d="M13.5547 7.61723V0.585996H4.14062V7.61723" stroke="white" stroke-width="1.5" stroke-miterlimit="10"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M18.2422 11.1719V8.7891C18.2422 8.14188 17.7175 7.61723 17.0703 7.61723" stroke="white"
-                                    stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                <path
-                                    d="M13.5546 4.10161H15.8984C16.5456 4.10161 17.0703 4.62626 17.0703 5.27348V7.61723H2.34374C1.37293 7.61723 0.585938 6.83024 0.585938 5.85942C0.585938 4.8886 1.37293 4.10161 2.34374 4.10161H4.14061" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path d="M6.48438 0.585996V7.61723" stroke-width="1.5" stroke-miterlimit="10"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                                <path
-                                    d="M19.414 15.8594H15.8984C14.604 15.8594 13.5547 14.8101 13.5547 13.5156C13.5547 12.2212 14.604 11.1719 15.8984 11.1719H19.414V15.8594Z" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path d="M8.82812 0.585996V7.61723" stroke-width="1.5" stroke-miterlimit="10"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                                <path
-                                    d="M15.8984 13.3516C15.8078 13.3516 15.7344 13.425 15.7344 13.5156C15.7344 13.6063 15.8078 13.6797 15.8984 13.6797C15.9891 13.6797 16.0625 13.6063 16.0625 13.5156C16.0625 13.425 15.9891 13.3516 15.8984 13.3516Z"
-                                    fill="white" stroke-width="1.5" />
-                            </g>
-                        </svg>
-                    </div>
-                    <div class="content">
-                        <span>{{translate('Total Balance')}}</span>
-                        <h6>{{ format_currency(Auth::user()->wallet_balance) }} <sub>({{currency_code()}})</sub></h6>
-                    </div>
-                </div>
-
                 <div class="profile-area @if(Auth::check() && request()->is('customer/*')) sidebar-toggle-button @endif">
                     <div class="profile-img">
                         @if(Auth::user()->image)

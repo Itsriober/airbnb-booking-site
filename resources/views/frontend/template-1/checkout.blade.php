@@ -280,55 +280,73 @@
                                                 <div class="payment-option">
                                                     <ul>
                                                         @foreach ($payment_methods as $key => $payment_method)
-                                                            <li
-                                                                class="{{ $payment_method->method_name }} {{ $key == 0 ? 'active' : '' }}">
-                                                                <img src="{{ asset('uploads/payment_methods/' . $payment_method->default_logo) }}"
-                                                                    alt="{{ $payment_method->method_name }}">
+                                                            <li class="{{ $payment_method->method_name }} {{ $key == 0 ? 'active' : '' }} payment-method-item" data-method="{{ $payment_method->method_name }}">
+                                                            @if($payment_method->method_name === 'crypto')
+                                                                <img src="{{ asset('uploads/payment_methods/crypto.png') }}" alt="Crypto Payment" style="height:32px;">
+                                                                <span class="ms-2">Pay with Crypto</span>
+                                                            @else
+                                                                <img src="{{ asset('uploads/payment_methods/' . $payment_method->default_logo) }}" alt="{{ $payment_method->method_name }}">
+                                                            @endif
                                                                 <div class="checked">
                                                                     <i class="bi bi-check"></i>
                                                                 </div>
+                                                                @if($payment_method->method_name === 'crypto')
+                                                                    <span class="badge bg-info ms-2">Secure Payment</span>
+                                                                @endif
                                                             </li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
                                             @endif
-                                            <div class="pt-25" id="StripePayment" style="display: none;">
+                                            
+                                            {{-- Crypto Proceed Button --}}
+                                            <div class="pt-25" id="CryptoPayment" style="display: none;">
+                                                <div class="alert alert-info">
+                                                    <i class="bi bi-shield-check"></i> You will be redirected to our secure payment gateway to complete your transaction.
+                                                </div>
+                                                <button type="submit" class="primary-btn1 w-100" id="crypto-submit">
+                                                    <i class="bi bi-shield-lock"></i> Proceed to Secure Checkout
+                                                </button>
+                                                <div class="text-danger mt-2" id="crypto-error" style="display:none;"></div>
+                                            </div>
+                                            
+                                            {{-- Stripe Payment Section --}}
+                                            <div class="pt-25 payment-option-hide mt-30" id="StripePayment" style="display: none;">
                                                 <div class="row g-4">
-                                                    <div class="col-md-12">
+                                                    <div class="col-lg-12">
                                                         <div class="form-inner">
                                                             <label>{{ translate('Card Number') }}</label>
-                                                            <input type="text" class="stripe_card_number"
+                                                            <input type="text" name="card_number" class="card-number"
                                                                 placeholder="1234 1234 1234 1234" maxlength="16">
-                                                            <img src="{{ asset('frontend/img/payment.png') }}"
-                                                                alt="Stripe" width="90">
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-lg-6">
                                                         <div class="form-inner">
-                                                            <label>{{ translate('Expiry') }}</label>
-                                                            <input type="text" class="stripe_card_expiry"
-                                                                id="stripe_card_expiry" placeholder="MM/YY">
+                                                            <label>{{ translate('Expiry Month') }}</label>
+                                                            <input type="text" name="expiry_month" class="card-expiry-month"
+                                                                placeholder="MM" maxlength="2">
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-inner">
+                                                            <label>{{ translate('Expiry Year') }}</label>
+                                                            <input type="text" name="expiry_year" class="card-expiry-year"
+                                                                placeholder="YY" maxlength="2">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
                                                         <div class="form-inner">
                                                             <label>{{ translate('CVC') }}</label>
-                                                            <input type="text" class="stripe_cvc" placeholder="CVC">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class='form-row row pt-3'>
-                                                    <div class='col-md-12 error form-group d-none'>
-                                                        <div class='alert-danger alert'>
-                                                            {{ translate('Please correct the errors and try again') }}.
+                                                            <input type="text" name="cvc" class="card-cvc"
+                                                                placeholder="123" maxlength="4">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="form-inner">
-                                            <button class="primary-btn1"
-                                                type="submit">{{ translate('Place Order') }}</button>
+                                            
+                                            <div class="form-inner" id="DefaultPlaceOrder">
+                                                <button class="primary-btn1" type="submit">{{ translate('Place Order') }}</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -345,5 +363,65 @@
     </div>
     @push('js')
         <script src="{{ asset('frontend/js/payment.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                // Initialize first payment method
+                var firstMethod = $('.payment-method-item:first').data('method');
+                if (firstMethod === 'crypto') {
+                    $('#CryptoPayment').show();
+                    $('#DefaultPlaceOrder').hide();
+                    $('#StripePayment').hide();
+                } else if (firstMethod === 'stripe') {
+                    $('#StripePayment').show();
+                    $('#CryptoPayment').hide();
+                    $('#DefaultPlaceOrder').show();
+                } else {
+                    $('#CryptoPayment').hide();
+                    $('#StripePayment').hide();
+                    $('#DefaultPlaceOrder').show();
+                }
+
+                $('.payment-method-item').on('click', function() {
+                    var method = $(this).data('method');
+                    $('.payment-method-item').removeClass('active');
+                    $(this).addClass('active');
+                    $('.payment_method').val(method);
+                    
+                    if (method === 'crypto') {
+                        $('#CryptoPayment').show();
+                        $('#DefaultPlaceOrder').hide();
+                        $('#StripePayment').hide();
+                    } else if (method === 'stripe') {
+                        $('#StripePayment').show();
+                        $('#CryptoPayment').hide();
+                        $('#DefaultPlaceOrder').show();
+                    } else {
+                        $('#CryptoPayment').hide();
+                        $('#StripePayment').hide();
+                        $('#DefaultPlaceOrder').show();
+                    }
+                });
+
+                // Crypto form validation
+                $('#crypto-submit').on('click', function(e) {
+                    var missing = [];
+                    if (!$('input[name="first_name"]').val().trim()) missing.push('First Name');
+                    if (!$('input[name="last_name"]').val().trim()) missing.push('Last Name');
+                    if (!$('input[name="address"]').val().trim()) missing.push('Address');
+                    if (!$('input[name="phone"]').val().trim()) missing.push('Phone');
+                    if (!$('input[name="email"]').val().trim()) missing.push('Email');
+                    
+                    if (missing.length > 0) {
+                        e.preventDefault();
+                        $('#crypto-error').text('Please fill in the following required fields: ' + missing.join(', ')).show();
+                        return false;
+                    } else {
+                        $('#crypto-error').hide();
+                        // Show loading state
+                        $(this).html('<i class="bi bi-hourglass-split"></i> Redirecting to Secure Payment...').prop('disabled', true);
+                    }
+                });
+            });
+        </script>
     @endpush
 @endsection

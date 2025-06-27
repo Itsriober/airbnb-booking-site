@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Store;
-use App\Models\Wallet;
 use App\Models\Product;
 use App\Models\Location;
 use Illuminate\Support\Str;
@@ -28,55 +27,25 @@ class AdminController extends Controller
     {
         $user       = Auth::user();
         $page_title = translate('Dashboard');
-        if ($user->role == 2) {
 
-            $user_customers        = Order::where('merchant_id', $user->id)->groupBy('user_id')->pluck('user_id');
-
-            $data['total_amount']       = $this->walletMultiTypeByStatus($type = 2, $status = 2, $author = $user->id);
-            $data['total_tax']          = $this->taxMultiTypeByStatus($type = 2, $status = 2, $userType = $user->id);
-            $data['total_withdraw'] = Wallet::where('type', 4)->where('user_id', $user->id)->where('status', 2)->sum('amount');
-            $data['depositReports']     = $this->transitionReport($status = 2, $type = 1);
-            $data['widthdrawReports']   = $this->transitionReport($status = 2, $type = 3);
-
-            $data['depositReports']   = $this->transitionReport($status = 2, $type = 1);
-            $data['widthdrawReports'] = $this->transitionReport($status = 2, $type = 3);
-
-            $productSettingReport = $this->productSellingReport();
-
-            $data['tourOrderReports'] = $this->orderTypeSales($merchant = $user->id, $orderStatus = 3,$type='tour');
-            $data['hotelOrderReports'] = $this->orderTypeSales($merchant = $user->id, $orderStatus = 3,$type='hotel');
-            $data['activitiesOrderReports'] = $this->orderTypeSales($merchant = $user->id, $orderStatus = 3,$type='activities');
-            $data['transportOrderReports'] = $this->orderTypeSales($merchant = $user->id, $orderStatus = 3,$type='transport');
-            $data['orderSummeries']       = $this->orderSummeryReport($merchant = $user->id);
-
-
-            $booking = Order::where('merchant_id', $user->id)->latest()->take(12)->get();
-        } else {
-
-            $data['total_amount']       = $this->walletMultiTypeByStatus($type = 2, $status = 2, $author = null);
-            $data['total_tax']          = $this->taxMultiTypeByStatus($type = 2, $status = 2, $userType = null);
-            $data['total_deposit'] = Wallet::where('type', 1)->where('status',2)->sum('total_amount');
-            $data['total_withdraw']  = Wallet::where('type', 4)->where('status',2)->sum('amount');
-            $data['total_profits']      = Wallet::where('status', 2)->sum('admin_commission');
-            $data['depositReports']     = $this->transitionReport($status = 2, $type = 1);
-            $data['widthdrawReports']   = $this->transitionReport($status = 2, $type = 3);
-
-            $productSettingReport = $this->productSellingReport();
-
-            $data['tourOrderReports'] = $this->orderTypeSales(null, $orderStatus = 3,$type='tour');
-            $data['hotelOrderReports'] = $this->orderTypeSales(null, $orderStatus = 3,$type='hotel');
-            $data['activitiesOrderReports'] = $this->orderTypeSales(null, $orderStatus = 3,$type='activities');
-            $data['transportOrderReports'] = $this->orderTypeSales(null, $orderStatus = 3,$type='transport');
-            $data['orderSummeries']       = $this->orderSummeryReport(null);
-            $data['customers']            = $this->userSummeryReport($type = 1, $status = 1);
-            $data['merchants']            = $this->userSummeryReport($type = 2, $status = 1);
-            $booking = Order::latest()->take(12)->get();
-        }
-
-
+        // New analytics (order/payment based)
+        $data = [];
+        $data['total_sales'] = Order::where('status', 3)->sum('total_with_tax'); // Approved orders
+        $data['total_orders'] = Order::count();
+        $data['total_tax'] = Order::sum('tax_amount');
         $data['total_customers'] = User::where('role', 1)->count();
-        $data['total_agents'] = User::where('role', 2)->count();
-        return view('backend.dashboard.index', compact('page_title', 'productSettingReport', 'data','booking'));
+        $data['total_merchants'] = User::where('role', 2)->count();
+        $data['recent_orders'] = Order::latest()->take(10)->get();
+        $data['tour_sales'] = Order::where('product_type', 'tour')->where('status', 3)->sum('total_with_tax');
+        $data['hotel_sales'] = Order::where('product_type', 'hotel')->where('status', 3)->sum('total_with_tax');
+        $data['activities_sales'] = Order::where('product_type', 'activities')->where('status', 3)->sum('total_with_tax');
+        $data['transport_sales'] = Order::where('product_type', 'transport')->where('status', 3)->sum('total_with_tax');
+        $data['orders_pending'] = Order::where('status', 1)->count();
+        $data['orders_processing'] = Order::where('status', 2)->count();
+        $data['orders_approved'] = Order::where('status', 3)->count();
+        $data['orders_cancelled'] = Order::where('status', 4)->count();
+
+        return view('backend.dashboard.index', compact('page_title', 'data'));
     }
 
 
@@ -447,60 +416,6 @@ class AdminController extends Controller
             ->groupBy('monthsYears')
             ->get();
     }
-
-    /**
-     * walletSubByStatus
-     *
-     * @param  int $type
-     * @param  int $status
-     * @param  int $userType
-     * @return Response
-     */
-    public function walletSubByStatus($type = null, $status = null, $userType = null)
-    {
-        $wallet = Wallet::where('type', $type)->where('status', $status);
-        if (!empty($userType)) {
-            return $wallet->where('user_id', $userType)->sum('amount');
-        }
-        return $wallet->sum('amount');
-    }
-
-    /**
-     * walletMultiTypeByStatus
-     *
-     * @param  int $type
-     * @param  int $status
-     * @param  int $author
-     * @return Response
-     */
-    public function walletMultiTypeByStatus($type = null, $status = null, $author = null)
-    {
-        if (!empty($author)) {
-            return Wallet::where('wallets.status', $status)->where('wallets.type', $type)->join('orders', 'orders.id', '=', 'wallets.order_id')
-                ->where('orders.merchant_id', $author)->sum('wallets.amount');
-        } else {
-            $wallet = Wallet::where('status', $status)->where('type', $type);
-            return $wallet->sum('amount');
-        }
-    }
-
-    /**
-     * taxMultiTypeByStatus
-     *
-     * @param  int $type
-     * @param  int $status
-     * @param  int $userType
-     * @return Response
-     */
-    public function taxMultiTypeByStatus($type = null, $status = null, $userType = null)
-    {
-        $wallet = Wallet::where('status', $status)->where('type', $type);
-        if (!empty($userType)) {
-            return $wallet->where('user_id', $userType)->sum('amount');
-        }
-        return $wallet->sum('tax_amount');
-    }
-
 
     /**
      * merchantPaymentInfo

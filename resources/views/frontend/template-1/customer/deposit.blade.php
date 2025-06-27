@@ -8,9 +8,6 @@
                     <div class="recent-listing-area">
                         <div class="title-and-tab">
                             <div class="table-title-area">
-                                <button type="button" class="btn btn-primary border-0" data-bs-toggle="modal"
-                                    data-bs-target="#paymentModal"><i class="bi bi-wallet2"></i>
-                                    {{ translate('Add Fund') }}</button>
                             </div>
                             <form action="" method="get">
                                 <select id="order-category" class="paginate_filter" name="search">
@@ -79,8 +76,5 @@
 
             </div>
         </div>
-    </div>
-    <div class="balance-content order-details">
-        @include('frontend.template-' . selectedTheme() . '.partials.payment_modal')
     </div>
 @endsection

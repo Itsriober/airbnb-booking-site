@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Order;
 use Razorpay\Api\Api;
-use App\Models\Wallet;
 use App\Models\Tour;
 use App\Models\Hotel;
 use App\Models\Activities;
@@ -140,55 +139,7 @@ class RazorpayController extends Controller
                 $orders->save();
             }
 
-            $payment = new Wallet;
-            $payment->transaction_id = $request->rzp_paymentid;
-            $payment->user_id = Auth::user()->id;
-            if ($request->type == 2 || $request->type == 3) {
-                $payment->order_id = $orders->id ?? null;
-            } elseif ($request->type == 7) {
-                $payment->order_id = $customer_info['order_id'] ?? null;
-            }
-            $payment->payer_id = $request->rzp_orderid;
-            $payment->payer_email = $customer_info['email'];
-            $payment->type = $customer_info['type'];
-            $payment->gateway_amount = ($customer_info['total_amount'] / (get_payment_method('razorpay_conversion') ?? 1));
-
-            if ($customer_info['type'] == 2) {
-                $admin_commission_rate = $products->users?->admin_commission ?? get_setting('merchant_commission');
-                $payment_rate = 100 - ($admin_commission_rate ?? 0);
-                $merchant_amount = $customer_cart['total_amount'] / 100 * $payment_rate;
-                $payment->merchant_amount = $merchant_amount;
-                $payment->admin_commission_rate = ($admin_commission_rate ?? 0);
-                $admin_commission = $customer_cart['total_amount'] - $merchant_amount;
-                $payment->admin_commission = $admin_commission;
-            }
-            if ($customer_info['type'] == 1) {
-                $payment->payment_details = 'Deposit to Wallet';
-            } elseif ($customer_info['type'] == 2) {
-                $payment->payment_details = $customer_cart['product_type'].' Order Payment';
-                if ($products->users?->role == 2) {
-                    User::findOrFail($products->author_id)->increment('wallet_balance', (int)$merchant_amount);
-                }
-                $admin = User::where('role', 4)->orderBy('id', 'asc')->first();
-                $admin->increment('wallet_balance', (int)$admin_commission);
-            }
-
-            $payment->amount = $customer_info['total_amount'];
-            $payment->tax_amount = $customer_info['tax_amount'];
-            $payment->total_amount = $customer_info['total_with_tax'] ? $customer_info['total_with_tax'] : $customer_info['total_amount'];
-            $payment->payment_method = 'razorpay';
-            $payment->currency = 'INR';
-            $payment->status = 2;
-            $payment->save();
-
-            if ($customer_info['type'] == 1) {
-                Auth::user()->increment('wallet_balance', $customer_info['total_amount']);
-                email_send('deposit', Auth::user()->email);
-                return redirect($customer_info['current_url'])->with('success', translate('Deposit successfully! Your Transaction ID is:') . $request->rzp_paymentid);
-            } elseif ($customer_info['type'] == 2) {
-                email_send('bidding_customer', Auth::user()->email);
-                return redirect()->route('thank_you')->with(['success' => translate('Booking successfully! Your Transaction ID is:') . $request->rzp_paymentid, 'orders' => $orders]);
-            }
+            return redirect()->route('thank_you')->with(['success' => translate('Booking successfully! Your Transaction ID is:') . $request->rzp_paymentid, 'orders' => $orders]);
         } catch (\Throwable $th) {
             $templateId = get_setting('theme_id') ?? 1;
             return view('frontend.errors.index', ['templateId' => $templateId, 'lang' => 'en']);

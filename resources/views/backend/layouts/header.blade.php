@@ -1,4 +1,4 @@
-        <header class="header-area">
+<header class="header-area">
             <div class="sidebar-header">
                 <a href="{{ route('backend.dashboard') }}" class="header-logo-icon">
                     @if (get_setting('front_favicon'))
@@ -92,11 +92,6 @@
                         </ul>
                     </div>
                 </div>
-                @merchant
-                    <div class="marchant-balance">
-                        {{ translate('Balance') }} : {{ currency_symbol() . number_format(Auth::user()->wallet_balance, 2) }}
-                    </div>
-                @endmerchant
                 <div class="admin-area dropdown">
                     <button class=" dropdown-toggle d-flex jusify-content-start align-items-center gap-2 border-none"
                         id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">

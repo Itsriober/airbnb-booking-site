@@ -387,50 +387,25 @@
                             </table>
                         </div>
 
-                        <div class="payment-form balance-content p-0">
+                        <div class="payment-form p-0">
                             <div class="payment-methods mb-30">
                                 <ul class="payment-list">
                                     @if ($payment_methods->count() > 0)
                                         @foreach ($payment_methods as $payment_method)
-                                            @if ($payment_method->id == 1)
-                                                <li class="{{ $payment_method->method_name }}-payment">
-                                                    <input type="radio" id="wallet" name="payment_method"
-                                                        value="{{ $payment_method->method_name }}" checked>
-                                                    <label for="wallet">
-                                                        <h6>{{ translate('Wallet') }}
-                                                            @if ($payment_method->logo)
-                                                                <img src="{{ asset('uploads/payment_methods/' . $payment_method->logo) }}"
-                                                                    alt="Wallet" height="20">
-                                                            @else
-                                                                <img src="{{ asset('uploads/payment_methods/' . $payment_method->default_logo) }}"
-                                                                    alt="Wallet" height="20">
-                                                            @endif
-                                                            <span
-                                                                class="wallet-balance">({{ currency_symbol() . wallet_balance(Auth::user()->id) }})</span>
-                                                        </h6>
-                                                    </label>
-                                                    <p class="para">
-                                                        {{ translate('If there is insufficient balance please') }} <button
-                                                            type="button" class="modal-btn btn" data-bs-toggle="modal"
-                                                            data-bs-target="#paymentModal">{{ translate('Add Balance') }}+</button>
-                                                    </p>
-                                                </li>
-                                            @else
-                                                <li class="{{ $payment_method->method_name }} mb-3">
-                                                    <input type="radio" id="{{ $payment_method->method_name }}"
-                                                        name="payment_method"
-                                                        value="{{ $payment_method->method_name }}">
-                                                    <label for="{{ $payment_method->method_name }}">
-                                                        @if ($payment_method->logo)
-                                                            <img src="{{ asset('uploads/payment_methods/' . $payment_method->logo) }}"
-                                                                alt="{{ $payment_method->method_name }}" height="25">
-                                                        @else
-                                                            <img src="{{ asset('uploads/payment_methods/' . $payment_method->default_logo) }}"
-                                                                alt="{{ $payment_method->method_name }}" height="25">
-                                                        @endif
-                                                    </label>
-                                                </li>
-                                            @endif
+                                            <li class="{{ $payment_method->method_name }} mb-3">
+                                                <input type="radio" id="{{ $payment_method->method_name }}"
+                                                    name="payment_method"
+                                                    value="{{ $payment_method->method_name }}">
+                                                <label for="{{ $payment_method->method_name }}">
+                                                    @if ($payment_method->logo)
+                                                        <img src="{{ asset('uploads/payment_methods/' . $payment_method->logo) }}"
+                                                            alt="{{ $payment_method->method_name }}" height="25">
+                                                    @else
+                                                        <img src="{{ asset('uploads/payment_methods/' . $payment_method->default_logo) }}"
+                                                            alt="{{ $payment_method->method_name }}" height="25">
+                                                    @endif
+                                                </label>
+                                            </li>
                                         @endforeach
                                     @else
                                         <li>
@@ -466,9 +441,6 @@
                                                 <input type="text" class="stripe_cvc" placeholder="123">
                                             </div>
                                         </div>
-
-
-
                                     </div>
                                     <div class='form-row row pt-3'>
                                         <div class='col-md-12 error form-group d-none'>

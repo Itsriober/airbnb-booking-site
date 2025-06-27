@@ -138,11 +138,6 @@ class StripeController extends Controller
                 $payment->admin_commission_rate = ($admin_commission_rate ?? 0);
                 $admin_commission = $customer_cart['total_amount'] - $merchant_amount;
                 $payment->admin_commission = $admin_commission;
-                if ($products->users?->role == 2) {
-                    User::findOrFail($products->author_id)->increment('wallet_balance', $merchant_amount);
-                }
-                $admin = User::where('role', 4)->orderBy('id', 'asc')->first();
-                $admin->increment('wallet_balance', $admin_commission);
             }
             if ($request->type == 1) {
                 $payment->payment_details = 'Deposit to Wallet';

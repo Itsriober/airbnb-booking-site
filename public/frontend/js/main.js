@@ -68,13 +68,7 @@
     $(function () {
         $('.payment-methods .payment-list li').on('click', function () {
             $('.payment-methods .payment-list li').removeClass('active'); // Remove active class from all list items
-            if ($(this).hasClass('wallet-payment')) {
-                if (!$("#strip-payment").hasClass('d-none')) {
-                    $("#strip-payment").addClass("d-none");
-                }
-                $(this).addClass('active'); // Add active class to the clicked list item
-            }
-            else if ($(this).hasClass('razorpay')) {
+            if ($(this).hasClass('razorpay')) {
                 if (!$("#strip-payment").hasClass('d-none')) {
                     $("#strip-payment").addClass("d-none");
                 }

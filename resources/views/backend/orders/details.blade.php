@@ -31,8 +31,6 @@
                             <div class="invoice-info">
                                 <b>{{ translate('Invoice Number') }} {{ '#' . $order->order_number }}</b><br>
                                 <b>{{ translate('Date') }}:</b> {{ dateFormat($order->created_at) }}<br>
-                                <b>{{ translate('Payment Method') }}:</b>
-                                {{ ucfirst($order->wallets->payment_method ?? '') }}<br>
                             </div>
                         </div>
                     </div>

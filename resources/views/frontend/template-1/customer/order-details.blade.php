@@ -36,6 +36,7 @@
                             @endif
                         </p>
                     </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <h5 class="ps-title">{{ translate('Order Summary') }}</h5>
@@ -60,13 +61,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if ($bidSingle->wallets->count() > 0)
-                                            @foreach ($bidSingle->wallets as $bid_payment)
+                                        @if ($bidSingle->products->count() > 0)
+                                            @foreach ($bidSingle->products as $product)
                                                 <tr>
                                                     <td>
-                                                        @if ($bidSingle->products->features_image)
+                                                        @if ($product->features_image)
                                                             <img alt="image"
-                                                                src="{{ asset('uploads/products/features/' . $bidSingle->products->features_image) }}"
+                                                                src="{{ asset('uploads/products/features/' . $product->features_image) }}"
                                                                 class="work-img img-fluid">
                                                         @else
                                                             <img alt="image"
@@ -75,21 +76,21 @@
                                                         @endif
                                                     </td>
                                                     <td><a target="__blank"
-                                                            href="{{ url('product/' . $bidSingle->products->slug) }}">{{ $bidSingle->products->getTranslation('name', $lang) }}</a>
+                                                            href="{{ url('product/' . $product->slug) }}">{{ $product->getTranslation('name', $lang) }}</a>
                                                     </td>
-                                                    <td>{{ $bidSingle->quantity }}</td>
+                                                    <td>{{ $product->pivot->quantity }}</td>
                                                     @if ($bidSingle->type == 2)
                                                         <td>{{ currency_symbol() . number_format($bidSingle->bid_amount, 2) }}
                                                         </td>
-                                                        <td>{{ currency_symbol() . number_format($bid_payment->amount, 2) }}
+                                                        <td>{{ currency_symbol() . number_format($product->pivot->amount, 2) }}
                                                         </td>
                                                     @else
-                                                        <td>{{ currency_symbol() . number_format($bid_payment->amount, 2) }}
+                                                        <td>{{ currency_symbol() . number_format($product->pivot->amount, 2) }}
                                                         </td>
                                                     @endif
-                                                    <td>{{ currency_symbol() . number_format($bid_payment->tax_amount, 2) }}
+                                                    <td>{{ currency_symbol() . number_format($product->pivot->tax_amount, 2) }}
                                                     </td>
-                                                    <td>{{ currency_symbol() . number_format($bid_payment->amount + $bid_payment->tax_amount, 2) }}
+                                                    <td>{{ currency_symbol() . number_format($product->pivot->amount + $product->pivot->tax_amount, 2) }}
                                                     </td>
                                                     @if ($bidSingle->payment_status != 3  &&  $bidSingle->status !==7)
                                                         <td>
@@ -110,11 +111,11 @@
                                             <tr>
                                                 <td @if ($bidSingle->type == 2) colspan="4" @else colspan="3" @endif>
                                                 </td>
-                                                <td>{{ currency_symbol() . number_format($bidSingle->wallets->sum('amount'), 2) }}
+                                                <td>{{ currency_symbol() . number_format($bidSingle->products->sum('pivot.amount'), 2) }}
                                                 </td>
-                                                <td>{{ currency_symbol() . number_format($bidSingle->wallets->sum('tax_amount'), 2) }}
+                                                <td>{{ currency_symbol() . number_format($bidSingle->products->sum('pivot.tax_amount'), 2) }}
                                                 </td>
-                                                <td>{{ currency_symbol() . number_format($bidSingle->wallets->sum('total_amount'), 2) }}
+                                                <td>{{ currency_symbol() . number_format($bidSingle->products->sum('pivot.amount') + $bidSingle->products->sum('pivot.tax_amount'), 2) }}
                                                 </td>
                                             </tr>
                                         </tfoot>

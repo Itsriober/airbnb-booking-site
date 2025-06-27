@@ -1,0 +1,1 @@
+<?php /**PATH /mnt/c/Users/jstnh/airbnb-booking-site/resources/views/frontend/template-1/includes/hotel/banner2.blade.php ENDPATH**/ ?>

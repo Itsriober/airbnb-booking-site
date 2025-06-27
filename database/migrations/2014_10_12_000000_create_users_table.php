@@ -35,7 +35,6 @@ return new class extends Migration
             $table->integer('role')->default(1)->comment('Customer=1, Author=2, Admin=3, SuperAdmin=4');
             $table->integer('status')->default(1)->comment('Active=1, Inactive=2');
             $table->string('admin_commission')->nullable();
-            $table->double('wallet_balance',10,2)->default(0.00);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -17,8 +17,6 @@
                                                 <th>{{ translate('Date') }}</th>
                                                 <th>{{ translate('Details') }}</th>
                                                 <th>{{ translate('Gateway Amount') }}</th>
-                                                <th>{{ translate('Amount') }}</th>
-                                                <th>{{ translate('Tax') }}</th>
                                                 <th>{{ translate('Method') }}</th>
                                                 <th>{{ translate('Status') }}</th>
                                             </tr>
@@ -31,8 +29,6 @@
                                                         <td data-label="Details">{{ $transaction->payment_details }}</td>
                                                         <td class="text-uppercase" data-label="Amount">
                                                             {{ $transaction->currency . ' ' . $transaction->gateway_amount }}</td>
-                                                        <td data-label="Wallet">{{ currency_symbol() . $transaction->amount }}</td>
-                                                        <td data-label="Wallet">{{ currency_symbol() . $transaction->tax_amount }}</td>
                                                         <td data-label="Method">{{ Ucfirst($transaction->payment_method) }}</td>
                                                         <td data-label="Status">
                                                             @if ($transaction->status == 1)

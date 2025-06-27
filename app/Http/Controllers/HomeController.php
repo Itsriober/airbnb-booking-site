@@ -10,7 +10,6 @@ use App\Models\Page;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Store;
-use App\Models\Wallet;
 use App\Models\Contact;
 use App\Models\Currency;
 use App\Models\Location;
@@ -693,62 +692,6 @@ class HomeController extends Controller
     }
 
     /**
-     * customer_deposit
-     *
-     * @param  mixed $request
-     * @return View
-     */
-    public function customer_deposit(Request $request)
-    {
-
-        $templateId = get_setting('theme_id') ?? 1;
-        $lang = $request->lang;
-        try {
-            $title = translate('Deposits');
-            $meta_description = get_setting('meta_description');
-            $meta_keyward = get_setting('meta_keyward');
-            $meta_image = get_setting('header_logo') ? url('assets/logo/' . get_setting('header_logo')) : '';
-            if (isset($request->search)) {
-                $deposits = Wallet::where('user_id', Auth::user()->id)->where('type', 1)->latest()->paginate($request->search);
-            } else {
-                $deposits = Wallet::where('user_id', Auth::user()->id)->where('type', 1)->latest()->paginate(10);
-            }
-            $payment_methods = PaymentMethod::where('status', 1)->where('id', '<>', 1)->get();
-
-            return view('frontend.template-' . $templateId . '.customer.deposit', compact('title', 'meta_image', 'meta_description', 'meta_keyward', 'deposits', 'payment_methods'));
-        } catch (\Throwable $th) {
-            return view('frontend.errors.index', ['templateId' => $templateId, 'lang' => $lang]);
-        }
-    }
-
-    /**
-     * customer_transaction
-     *
-     * @param  mixed $request
-     * @return View
-     */
-    public function customer_transaction(Request $request)
-    {
-        $templateId = get_setting('theme_id') ?? 1;
-        $lang = $request->lang;
-        try {
-            $title = translate('Transactions');
-            $meta_description = get_setting('meta_description');
-            $meta_keyward = get_setting('meta_keyward');
-            $meta_image = get_setting('header_logo') ? url('assets/logo/' . get_setting('header_logo')) : '';
-            if (isset($request->search)) {
-                $transactions = Wallet::where('user_id', Auth::user()->id)->latest()->paginate($request->search);
-            } else {
-                $transactions = Wallet::where('user_id', Auth::user()->id)->latest()->paginate(10);
-            }
-
-            return view('frontend.template-' . $templateId . '.customer.transaction', compact('title', 'transactions'));
-        } catch (\Throwable $th) {
-            return view('frontend.errors.index', ['templateId' => $templateId, 'lang' => $lang]);
-        }
-    }
-
-    /**
      * customer_update
      *
      * @param  mixed $request
@@ -874,7 +817,6 @@ class HomeController extends Controller
         $customer_cart = Session::get('customer_cart');
         $lang = $request->lang;
         if (isset($customer_cart['price'], $customer_cart['product_id'])) {
-
             if (is_numeric((int)$customer_cart['price']) && is_numeric($customer_cart['product_id'])) {
                 if ($customer_cart['product_type'] == 'tour') {
                     $singleProduct = Tour::findOrFail($customer_cart['product_id']);
@@ -890,16 +832,27 @@ class HomeController extends Controller
                 $quantity = abs($customer_cart['quantity']);
 
                 $loginUser = Auth::user();
-                $countries = Location::where('country_id', null)->where('state_id', null)->get();
+
+                // Cache countries for 1 day
+                $countries = cache()->remember('countries_list', 86400, function () {
+                    return Location::whereNull('country_id')->whereNull('state_id')->get();
+                });
+
                 $title = translate('Checkout');
                 $meta_description = get_setting('meta_description');
                 $meta_keyward = get_setting('meta_keyward');
                 $meta_image = get_setting('header_logo') ? url('assets/logo/' . get_setting('header_logo')) : '';
-                $payment_methods = PaymentMethod::where('status', 1)->get();
 
-                return view('frontend.template-' . $templateId . '.checkout', compact('title', 'meta_image', 'meta_description', 'meta_keyward', 'loginUser', 'singleProduct', 'price', 'quantity', 'countries', 'lang', 'payment_methods', 'customer_cart'));
+                // Cache payment methods for 1 hour
+                $payment_methods = cache()->remember('active_payment_methods', 3600, function () {
+                    return PaymentMethod::where('status', 1)->get();
+                });
+
+                // Efficient PayGate check
+                $paygate_enabled = $payment_methods->contains('method_name', 'crypto');
+
+                return view('frontend.template-' . $templateId . '.checkout', compact('title', 'meta_image', 'meta_description', 'meta_keyward', 'loginUser', 'singleProduct', 'price', 'quantity', 'countries', 'lang', 'payment_methods', 'customer_cart', 'paygate_enabled'));
             } else {
-
                 return redirect()->back()->with('error', translate('Wrong'));
             }
         } else {

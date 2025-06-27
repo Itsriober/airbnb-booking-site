@@ -15,7 +15,7 @@
                                 <div class="col-lg-6 mx-auto">
                                     <div class="form-inner mb-35">
                                         <label>{{translate('Amount')}} <span class="text-danger">*</span></label>
-                                        <input type="number" name="amount" value="{{old('amount')}}" min="1" max="{{Auth::user()->wallet_balance}}" class="username-input" placeholder="{{number_format(Auth::user()->wallet_balance,2)}}">
+                                        <input type="number" name="amount" value="{{old('amount')}}" min="1" class="username-input" placeholder="0.00">
                                         @error('amount')
                                         <div class="error text-danger">{{ $message }}</div>
                                         @enderror

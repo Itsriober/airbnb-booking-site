@@ -4,9 +4,6 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="currency-icon">
-                    <span><i class="bi bi-currency-dollar"></i></span>
-                </div>
                 <h4 class="modal-title" id="finalPaymentModalLabel">{{ translate('Bid Final Payment') }}</h4>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
@@ -33,14 +30,6 @@
                                                     value="{{ $payment_method->method_name }}">
                                                 <label class="custom-control-label"
                                                     for="{{ $payment_method->method_name }}">
-
-                                                    @if ($payment_method->logo)
-                                                        <img src="{{ asset('uploads/payment_methods/' . $payment_method->logo) }}"
-                                                            alt="Wallet" height="20">
-                                                    @else
-                                                        <img src="{{ asset('uploads/payment_methods/' . $payment_method->default_logo) }}"
-                                                            alt="Wallet" height="20">
-                                                    @endif
                                                     <div class="checked"><i class="bi bi-check"></i></div>
                                                 </label>
                                             </div>

@@ -17,20 +17,10 @@ class PaymentMethodSeeder extends Seeder
 
         $paymentMethods=[
             [
-            'method_name' => "wallet",
-            'default_logo' => "wallet.png",
-            'mode'=>1,
-            'status'=>1,
-            'logo' =>null,
-            'created_at'=> now(),
-            'updated_at'=> now(),
-
-            ],
-            [
                 'method_name' => "paypal",
                 'default_logo' => "paypal.png",
                 'mode'=>1,
-                'status'=>2,
+                'status'=>1,
                 'logo' =>null,
                 'created_at'=> now(),
                 'updated_at'=> now(),
